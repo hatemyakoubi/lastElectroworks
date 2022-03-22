@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col align-self-start" style="font-size: smaller;">
+        Code candidat : {{candidat.id}}
+        </div>
+        <div class="col align-self-center">
+            <h3>N° de Réçu :
+            {% if paiementID %}
+                {% for p in paiementID %}
+                    {{p.id+1}}
+                {% endfor %} 
+            {% else %}
+                0               
+            {% endif %}
+            
+            </h3> 
+        </div>
+        <div class="col align-self-end">
+            <img src="{{asset('images/logo.jpg')}}"alt="..." height="80" style="float: right;">
+        </div>  
+    </div>
+    <div class="row" style="margin-top: 80px;">
+        <div class="col-6">
+            <label  style="font-size: 20px; margin-right: 20px;">Nom : </label>
+                {{candidat.nom |capitalize }}
+        </div>
+        <div class="col-6">
+            <label style="font-size: 20px; margin-right: 20px;">Prénom : </label>
+                {{candidat.prenom |capitalize }}
+        </div>
+    </div>
+    <div class="row" style="margin-top: 80px;">
+        <div class="col-6">
+            <label style="font-size: 20px; margin-right: 20px;">Date : </label>
+                {{date|date('d-m-Y')}}
+        </div>
+        <div class="col-6">
+
+            <label style="font-size: 20px; margin-right: 20px;">Formation : </label>
+                {% for f in candidat.formation %}
+                    {{ (f.nom) }}/
+                    {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            {{form_start(form)}}
+            {{ form_row(form.montant) }} 
+                <button onclick="Imprimer()" id="btnPrint" class="btn btn-primary" style="margin-bottom:15px;">{{ button_label|default('Enregistrer') }}</button>
+
+            {{form_end(form)}}
+        </div>
+    </div>
+    
+    <script>
+        function Imprimer() {
+            document.getElementById('btnPrint').style.display='none';
+            window.print();
+            document.getElementById('btnPrint').style.display='block';
+    
+        }
+    </script>
+{% endblock %}

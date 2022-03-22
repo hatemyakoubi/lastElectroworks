@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+    <h1>Listes des candidats non certifiés</h1>
+
+      {% for message in app.flashes('success') %}
+	<div class="alert alert-primary">
+		{{ message }}
+	</div>
+    {% endfor %}
+
+    <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-field="id">ID</th>
+                <th>Cin</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Formation</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+        {% for candidat in candidats %}
+           {% if candidat.certificats|length  == null  %}
+             <tr>
+                <td>{{ candidat.id }}</td>
+                <td>{{ candidat.cin }}</td>
+                <td>{{ candidat.nom }}</td>
+                <td>{{ candidat.prenom }}</td>
+                <td>
+                    {% for c in candidat.formation %}
+                            <li>
+                                {{c.Nom}}
+                            </li>                     
+                    {% endfor %}                               
+                </td>
+                <td>
+        <a href="{{ path('add_certificate', {'id': candidat.id}) }}"class="btn btn-success"><i class="fas fa-file-certificate"></i></a>
+
+                </td>
+                {# <td>{{ certificat.specialite }}</td>
+                <td>{{ certificat.createdAt ? certificat.createdAt|date('d-m-Y') : '' }}</td> #}
+                {# <td> 
+                    <a href="{{ path('certificat_show', {'id': certificat.id}) }}" class="btn btn-info" style="margin: 5px;"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('certificat_edit', {'id': certificat.id}) }}" class="btn btn-success" style="margin: 5px;"><i class="fas fa-user-edit"></i></a>
+               </td>  #}
+             </tr>
+           
+           {% endif %}
+           
+        {% else %}
+            <tr>
+                <td colspan="13">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody> 
+    </table>
+{% endblock %}

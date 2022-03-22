@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+    <h1>Cours</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>iD</th>
+                <td>{{ cour.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ cour.Nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('cours_index') }}"class="btn btn-success">Retour à la liste</a>
+
+    <a href="{{ path('cours_edit', {'id': cour.id}) }}"><button class="btn btn-warning"style="margin-right: 15px;">Modifier</button></a>
+
+    {{ include('cours/_delete_form.html.twig') }}
+{% endblock %}

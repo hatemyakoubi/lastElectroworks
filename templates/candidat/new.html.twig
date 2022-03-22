@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+    <h1>Creé un nouveau candidat</h1>
+    {{ form_start(form) }}
+        <div class="row">
+            <div class="col-6">
+                {{form_row(form.nom)}}
+            </div>
+            <div class="col-6">
+                {{form_row(form.prenom)}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                {{form_row(form.cin)}}
+            </div>
+            <div class="col-4">
+                {{form_row(form.date_naissance)}}
+            </div>
+            <div class="col-4">
+                {{form_row(form.lieu_naissance)}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                {{form_row(form.niveau_etude)}}
+            </div>
+            <div class="col-4">
+                {{form_row(form.specialite)}}
+            </div>
+            <div class="col-4">
+                {{form_row(form.etablissement)}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{form_row(form.telephone)}}
+            </div>
+            <div class="col-3">
+                {{form_row(form.dure_formation)}}
+            </div>
+            <div class="col-6">
+                {{form_row(form.formation)}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{form_row(form.coursFavorie)}}
+            </div>
+            <div class="col-6">
+                {{form_row(form.besoin)}}
+            </div>
+            
+        </div>
+        <button class="btn btn-primary" style="margin-bottom:15px;">{{ button_label|default('Enregistrer') }}</button>
+
+    {{ form_end(form) }}
+    {#{{ include('candidat/_form.html.twig') }}#}
+
+    <a href="{{ path('candidat_index') }}" class="btn btn-success">Retour à la liste</a>
+{% endblock %}

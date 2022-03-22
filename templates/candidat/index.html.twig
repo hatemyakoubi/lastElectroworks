@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+
+{% block body %}
+    <h1>Listes des candidats</h1>
+
+    {% for message in app.flashes('success') %}
+	<div class="alert alert-primary">
+		{{ message }}
+	</div>
+    {% endfor %}
+
+
+    <div style="text-align: right; margin-bottom: 20px;">
+        <a href="{{path('candidat_new')}}">
+            <button class="btn btn-success">
+
+                <i class="fas fa-plus" style="margin-right: 5px; "></i>
+                Nouveau candidat
+            </button>
+        </a>
+    </div>
+
+    <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-field="id">ID</th>
+                <th data-sortable="true" data-field="nom">Nom</th>
+                <th data-sortable="true" data-field="prenom">Prénom</th>
+                <th>Cin</th>         
+                <th>Telephone</th>  
+                {# <th>Durée de formation</th> #}
+                <th>Formation</th>              
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for candidat in candidats %}
+            <tr>
+                <td>{{ candidat.id }}</td>
+                <td>{{ candidat.nom }}</td>
+                <td>{{ candidat.prenom }}</td>
+                <td>{{ candidat.cin }}</td>
+               {# <td>{{ candidat.dateNaissance ? candidat.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ candidat.lieuNaissance }}</td>
+                <td>{{ candidat.niveauEtude }}</td>#}
+                <td>{{ candidat.telephone }}</td>
+                {# <td>{{ candidat.dureFormation }}</td> #}
+                <td>
+                    {% for f in candidat.formation %}
+                        <li>
+                        {{f.Nom}}
+                        </li>
+                    {% endfor %}
+                
+                </td>
+                <td>
+                <div class="row">
+                    <a href="{{ path('candidat_show', {'id': candidat.id}) }}"class="btn btn-info"  style="margin-left:10px;  " ><i class="far fa-eye" ></i></a>
+                    <a href="{{ path('candidat_edit', {'id': candidat.id}) }}"class="btn btn-warning"  style="margin-left:10px; "><i class="fas fa-user-edit"></i></a>
+                    <a href="{{ path('candidat_detail', {'id': candidat.id}) }}"class="btn btn-secondary"  style="margin-left:10px;  " ><i class="far fa-info-square"></i></a>
+                    <a href="{{ path('candidat_paiement', {'id': candidat.id}) }}"class="btn btn-success"  style="margin-left:10px; "><i class="far fa-money-check-edit-alt"></i></a>
+                    {# <a href="{{ path('add_certificate', {'id': candidat.id}) }}"class="btn btn-danger"  style="margin-left:10px;margin-right:10px;  font-size:10px;"><i class="fas fa-file-certificate"></i></a> #}
+                </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

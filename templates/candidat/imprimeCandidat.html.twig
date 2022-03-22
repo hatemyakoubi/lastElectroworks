@@ -1,0 +1,134 @@
+{% extends "base.html.twig" %}
+{% block title %}{{controller_name}}{% endblock %}
+  {% block body %}
+  <div class="container" style="margin-top: 30px;">
+        
+
+                <div class="row">
+                    <div class="col align-self-start" style="font-size: smaller;">
+                    Code candidat : {{candidat.id}}
+                    </div>
+                    <div class="col align-self-center">
+                        <h3>Formulaire d'inscription</h3> 
+                    </div>
+                    <div class="col align-self-end">
+                        <img src="{{asset('images/logo.jpg')}}"alt="..." height="80" style="float: right;">
+                    </div>  
+                </div>
+                <div style="margin-top: 80px;"></div>
+                <div class="row">
+                    <div class="col-6">
+                            <label style="font-size: 20px; margin-right: 20px;">Nom : </label>
+                            {{ candidat.nom }} 
+                    </div>
+                    <div class="col-6">
+                        <label style="font-size: 20px; margin-right: 20px;">Prénom : </label>
+                        {{ candidat.prenom }}
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label style="font-size: 20px; margin-right: 20px;">CIN :</label>
+                            {{ candidat.cin }}
+                        </div>
+                    </div>
+                    
+                    <div class="col-4">
+                    <div class="form-group">
+                        <label style="font-size: 20px; margin-right: 20px;">Né le :</label>
+                        {{ candidat.dateNaissance ? candidat.dateNaissance|date('d-m-Y') : '' }}
+                    </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label style="font-size: 20px; margin-right: 20px;">À :</label>
+                            {{ candidat.lieuNaissance }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label style="font-size: 20px; margin-right: 20px;">Niveau d'étude :</label>
+                            {{ candidat.niveauEtude }}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label style="font-size: 20px; margin-right: 20px;">Spécialité :</label>
+                            {{ candidat.specialite }}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                    <div class="form-group">
+                        <label style="font-size: 20px; margin-right: 20px;">Etablissement :</label>
+                        {{ candidat.etablissement }}
+                    </div>
+                </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label style="font-size: 20px; margin-right: 20px;">Télèphone :</label>
+                            {{ candidat.telephone }}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                    <div class="form-group">
+                        <label style="font-size: 20px; margin-right: 20px;">Formation :</label>
+                        {% for c in candidat.formation %}
+
+                            {{c.Nom}}
+                            
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-4">
+                        <div class="form-group">
+                            <label style="font-size: 20px; margin-right: 20px; ">Durée de la formation :</label>
+                            {{ candidat.dureFormation }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-6">
+                        <label style="font-size: 20px; margin-right: 20px;">Cours :</label>
+                        {{ candidat.coursFavorie }}
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label style="font-size: 20px; margin-right: 20px; ">Besoin :</label>
+                            {{ candidat.besoin }}
+                        </div>
+                    </div>     
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col">
+                        <div class="form-group" style="float: right;">
+                            <label style="font-size: 20px; margin-right: 20px;">Gafsa le :</label>
+                            {{ candidat.CreatedAt|date('d-m-Y')  }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group" style="text-align: right;">
+                            <label>Signature </label>
+                            
+                        </div>
+                    </div>
+                </div>
+            <button onclick="Imprimer()" id="btnPrint" class="btn btn-primary">Imprimer</button>
+        </div>
+  </div>
+<script>
+    function Imprimer() {
+        document.getElementById('btnPrint').style.display='none';
+        window.print();
+        document.getElementById('btnPrint').style.display='block';
+
+    }
+</script>
+  {% endblock %}
+

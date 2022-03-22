@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+    <h1>Paiements</h1>
+
+    <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+        <thead>
+            <tr>
+                <th>Code candidat</th>
+                <th>Nom & Prénom</th>
+                <th>N° réçu</th>
+                <th>Montant</th>
+                <th>Date de paiement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for paiement in paiements %}
+            <tr>
+                <td>
+                        {{paiement.candidat.id}}
+                </td>
+                <td>
+                        {{paiement.candidat.nom}} {{paiement.candidat.prenom}}
+                </td>
+                <td>{{ paiement.id }}</td>
+                <td>{{ paiement.montant }}</td>
+                <td>{{ paiement.datePay ? paiement.datePay|date('d-m-Y') : '' }}</td>
+                <td>
+                    <a href="{{ path('paiement_show', {'id': paiement.id}) }}" class="btn btn-info"><i class="far fa-eye" ></i></a>
+                    <a href="{{ path('paiement_edit', {'id': paiement.id}) }}" class="btn btn-warning"><i class="fas fa-user-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

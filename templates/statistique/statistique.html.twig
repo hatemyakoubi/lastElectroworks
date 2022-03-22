@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
+{% endblock %}
+{% block body %}
+    <h1>Statistique</h1>
+        <div>
+            <h3>candidats/Formation</h3>
+            <canvas id="Candidat" width="400" height="100"></canvas>
+        </div>
+        
+        <div>
+            <h3>Montant/Date</h3>
+            <canvas id="montant" width="400" height="100"></canvas>
+        </div>
+        <div>
+            <h3>Nbrs Candidat certifié</h3>
+            <canvas id="certificat" width="400" height="100"></canvas>
+        </div>
+
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+<script>
+var ctx = document.getElementById('Candidat').getContext('2d');
+var Candidat = new Chart(ctx, {
+    type: 'bar',
+    //type: 'pie',
+    data: {
+        labels: {{coursNom|raw}},
+        datasets: [{
+            label: 'nbrs candidats/formation',
+            data: {{CandidatParCours|raw}},
+            backgroundColor: {{color|raw}}
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+var ctx1 = document.getElementById('montant').getContext('2d');
+var montant = new Chart(ctx1, {
+    type: 'line',
+    //type: 'pie',
+    data: {
+        labels: {{DatePaiment|raw}},
+        datasets: [{
+            label: 'Montant/Date',
+            data: {{MontPaiement|raw}},
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            //tension: 0.1
+        }]
+    }
+});
+
+var ctx2 = document.getElementById('certificat').getContext('2d');
+var certificat = new Chart(ctx2, {
+    //type: 'bar',
+    type: 'pie',
+    data: {
+        labels: {{CertSpicialte|raw}},
+        datasets: [{
+            label: 'Nbrs candidats certifié',
+            data: {{CandidatParCertificat|raw}},
+            backgroundColor : {{couleur|raw}},
+            //tension: 0.1
+        }]
+    }
+});
+
+</script>
+{% endblock %}
+{% endblock %}

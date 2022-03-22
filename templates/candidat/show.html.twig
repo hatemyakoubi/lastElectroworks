@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+    <h1>Détail Candidat</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ candidat.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ candidat.nom |capitalize   }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ candidat.prenom|capitalize  }}</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>{{ candidat.cin }}</td>
+            </tr>
+            <tr>
+                <th>Date_naissance</th>
+                <td>{{ candidat.dateNaissance ? candidat.dateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Lieu_naissance</th>
+                <td>{{ candidat.lieuNaissance|capitalize  }}</td>
+            </tr>
+            <tr>
+                <th>Niveau_etude</th>
+                <td>{{ candidat.niveauEtude|capitalize  }}</td>
+            </tr>
+            <tr>
+                <th>Specialite</th>
+                <td>{{ candidat.specialite |capitalize }}</td>
+            </tr>
+            <tr>
+                <th>Etablissement</th>
+                <td>{{ candidat.etablissement|capitalize }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ candidat.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Date d'inscription</th>
+                <td>{{ candidat.CreatedAt ? candidat.CreatedAt|date('d-m-Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Duréd de formation</th>
+                <td>{{ candidat.dureFormation }}</td>
+            </tr>
+            <tr>
+                <th>cours</th>
+                <td>{{ candidat.coursFavorie }}</td>
+            </tr>
+            <tr>
+                <th>Formations</th>
+                <td>
+                    {% for c in candidat.formation %}
+                        <li>
+                        {{c.Nom}}
+                        </li>
+                    {% endfor %}                
+                </td>
+            </tr>
+        </tbody>
+       
+    </table>
+    <h3>Paiements</h3>
+    <table class="table">
+        <tr>
+            <th>Code paiement</th>
+            <th>Date de paiement</th>
+            <th>Montant</th>
+        </tr>
+           {% for p in candidat.paiements %}
+                <tr>
+                    <td>{{p.id}}</td>
+                    <td>{{p.datePay|date('d-m-Y')}}</td>
+                    <td>{{p.montant|format_currency('TND')}}</td>
+                    
+                </tr>
+           {% else %}
+                <tr>
+                     <td colspan="13" style="text-align:center;">Pas encore payé</td>
+
+                </tr> 
+            {% endfor %}
+    </table>
+    <h3>Certificats</h3>
+    <table class="table">
+        <tr>
+            <th>Code certificat</th>
+            <th>Certifié le</th>
+            <th>Formation</th>
+        </tr>
+           {% for p in candidat.certificats %}
+                <tr>
+                    <td>{{p.id}}</td>
+                    <td>{{p.createdAt|date('d-m-Y')}}</td>
+                    <td>{{p.specialite}}</td>
+                    
+                </tr>
+            {% else %}
+                <tr>
+                     <td colspan="13" style="text-align:center;">Pas encore certifié</td>
+
+                </tr> 
+            {% endfor %}
+
+    </table>
+    {#<a href="{{ path('users_data_download',{'id':candidat.id}) }}" class="btn btn-primary">Télécharger les données</a>#} 
+        <div id="btnPrint">
+            <a href="{{ path('candidat_index') }}"class="btn btn-success">Retour à la liste</a>
+
+            <a href="{{ path('candidat_edit', {'id': candidat.id}) }}"><button class="btn btn-warning"style="margin-right: 15px;">Modifier</button></a>
+        
+            <button onclick="Imprimer()"  class="btn btn-primary" id="togg1">Imprimer</button>
+        
+            {{ include('candidat/_delete_form.html.twig') }}
+        </div>
+    <script>
+    function Imprimer() {
+        
+        document.getElementById('btnPrint').style.display='none';        
+
+        window.print();
+
+        document.getElementById('btnPrint').style.display='block';
+    }
+</script>
+{% endblock %}

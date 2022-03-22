@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+    <h1>Liste des Cours</h1>
+    {% for message in app.flashes('success') %}
+	<div class="alert alert-primary">
+		{{ message }}
+	</div>
+    {% endfor %}
+
+
+    <div style="text-align: right; margin-bottom: 20px;">
+        <a href="{{path('cours_new')}}">
+            <button class="btn btn-success">
+
+                <i class="fas fa-plus" style="margin-right: 5px; "></i>Nouveau Cours
+            </button>
+        </a>
+    </div>
+    <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true" >
+        <thead>
+            <tr>
+                <th data-sortable="true" data-field="id">ID</th>
+                <th data-sortable="true" data-field="nom">Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cour in cours %}
+            <tr>
+                <td>{{ cour.id }}</td>
+                <td>{{ cour.Nom }}</td>
+                <td>
+                    <div style="text-align: center;">
+
+                    <a href="{{ path('cours_show', {'id': cour.id}) }}"class="btn btn-info" style="width: 15%;" ><i class="far fa-eye"></i></a>
+                    <a href="{{ path('cours_edit', {'id': cour.id}) }}"class="btn btn-warning" style="width: 15%; margin-left: 15px;"><i class="fas fa-user-edit"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+ 
+{% endblock %}

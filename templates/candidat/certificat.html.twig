@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{form_start(form)}}
+    {{form_widget(form)}}
+        <button class="btn btn-primary" style="margin-bottom:15px;">{{ button_label|default('Enregistrer') }}</button>
+        <!-- <div class="form-group">
+            <label for="my-select">Text</label>
+                        <select id="my-select" class="form-control" name="" multiple>
+                            {% for c in candidat.formation %}
+                                    
+                            <option>{{c.Nom}}</option>
+                                
+                            {% endfor %}
+                        </select>
+        </div> -->
+        
+{{form_end(form)}}
+{% endblock %}
