@@ -178,7 +178,7 @@ class CandidatController extends AbstractController
 
             $this->addFlash('success', 'Une certificat à été ajouté avec succès');
 
-            return $this->redirectToRoute('candidat_index');
+            return $this->redirectToRoute('candidatNoCertificated');
 
         }
 
