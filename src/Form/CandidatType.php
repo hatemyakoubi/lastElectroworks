@@ -57,7 +57,9 @@ class CandidatType extends AbstractType
             ->add('telephone',TextType::class,[
                 'label'=> 'Télèphone',
             ])
-            //->add('CreatedAt')
+            ->add('createdAt',DateType::class,[
+                'label'=> 'Date d\'inscription '
+            ])
             ->add('dure_formation', TextType::class,[
                 'label'=>'Dureé de la formation'
             ])

@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Candidat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\EntityManagerInterface;
 use function PHPUnit\Framework\isTrue;
 
 /**
@@ -16,9 +16,10 @@ use function PHPUnit\Framework\isTrue;
  */
 class CandidatRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry,EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, Candidat::class);
+        $this->entityManager = $entityManager;
     }
 
     // /**
@@ -63,4 +64,20 @@ class CandidatRepository extends ServiceEntityRepository
         ;
     }
     */
+
+       /**
+      * @return Candidat[] Returns an array of Candidat objects
+      */
+    public function ChangeArchive(Candidat $candidat){
+
+        if ($candidat->getIsarchived()==true) {
+            $candidat->setIsarchived(false);
+        }else {
+            $candidat->setIsarchived(True);
+        }
+        $this->entityManager->persist($candidat);
+        $this->entityManager->flush();
+        return $candidat;
+
+    }
 }

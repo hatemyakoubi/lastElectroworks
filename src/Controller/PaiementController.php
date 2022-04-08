@@ -23,7 +23,7 @@ class PaiementController extends AbstractController
     public function index(PaiementRepository $paiementRepository): Response
     {
         return $this->render('paiement/index.html.twig', [
-            'paiements' => $paiementRepository->findAll(),
+            'paiements' => $paiementRepository->findBy([],['datePay' => 'DESC']),
             'controller_name'=> 'Listes des paiements'
         ]);
     }

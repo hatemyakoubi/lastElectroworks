@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CandidatRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class HomeController extends AbstractController
@@ -18,6 +19,21 @@ class HomeController extends AbstractController
             'controller_name' => 'Acceuil',
         ]);
     }
+    /**
+     * @Route("/archive", name="archive_index")
+     */
+    public function archive(CandidatRepository $candidatRepository): Response
+    {
+        $candidats = $candidatRepository->findBy(
+            [],
+            ['id' => 'DESC'],
+        );
+        return $this->render('candidat/archive.html.twig', [
+            'candidats'=>$candidats,
+            'controller_name'=>'Listes des candidats archivés'
+        ]);
+    }
+
 
     /**
      * @Route("/", name="app_login")

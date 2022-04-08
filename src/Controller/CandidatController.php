@@ -32,7 +32,7 @@ class CandidatController extends AbstractController
      */
     public function index(CandidatRepository $candidatRepository): Response
     {
-        $candidats = $candidatRepository->findBy([],['id' => 'DESC']);
+        $candidats = $candidatRepository->findBy( [],['id' => 'DESC']);
         return $this->render('candidat/index.html.twig', [
             'candidats'=>$candidats,
             'controller_name'=>'Listes des candidats'
@@ -188,6 +188,20 @@ class CandidatController extends AbstractController
             'controller_name'=>'Ajouter une certificat'
             
         ]);
+
+    }
+    /**
+     * @Route("/archiver/{id}", name="add_archive")
+     */
+    public function Archive(Request $request,Candidat $candidat ,CandidatRepository $candidatRepository,$id)
+    {
+        $candidat = $candidatRepository->find($id);
+        
+        $candidatRepository->ChangeArchive($candidat);
+
+        $this->addFlash('success', 'Dossier candidat est archivé');
+
+        return $this->redirectToRoute('candidat_index');
 
     }
     

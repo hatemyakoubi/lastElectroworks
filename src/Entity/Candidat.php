@@ -101,11 +101,17 @@ class Candidat
      */
     private $certificats;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isarchived;
+
     
     public function __construct()
     {
        
         $this->CreatedAt = new \DateTime();
+        $this->isarchived = false;
         $this->formation = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->certificats = new ArrayCollection();
@@ -350,6 +356,18 @@ class Candidat
         if ($this->certificats->removeElement($certificat)) {
             $certificat->removeCandidat($this);
         }
+
+        return $this;
+    }
+
+    public function getIsarchived(): ?bool
+    {
+        return $this->isarchived;
+    }
+
+    public function setIsarchived(bool $isarchived): self
+    {
+        $this->isarchived = $isarchived;
 
         return $this;
     }

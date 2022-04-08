@@ -8,6 +8,7 @@
                 {{controller_name}}!
             {% endblock %}
          </title>
+         <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/logo.jpg')}}">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
@@ -48,6 +49,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('paiement_index')}}">Paiements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('archive_index')}}">Archive</a>
                     </li>
                       <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
